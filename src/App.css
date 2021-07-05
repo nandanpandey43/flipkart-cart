@@ -235,6 +235,8 @@ a:hover {
   color: #f58551;
 }
 
+
+
 button {
   background-color: #16cc9b;
   border: 2px solid #16cc9b;
@@ -286,7 +288,7 @@ input {
 }
 
 .container {
-  width: max-content;
+  width: auto;
   height: auto;
   background-color: white;
   margin-left: 20px;
@@ -338,7 +340,7 @@ header .count {
 .row {
   position: relative;
   overflow: auto;
-  width: 100%;
+  width: auto;
 }
 
 .col, .quantity, .remove {
@@ -573,3 +575,16 @@ header .count {
 .dashboard hr{
   margin-bottom: 20px;
 }
+
+
+
+.horiz {
+  display: flex;
+  flex-direction: row;
+  /* margin-right: 20px; */
+}
+
+.horiz button {
+  all: revert
+}
+

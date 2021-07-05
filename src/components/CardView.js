@@ -1,15 +1,24 @@
 import React from 'react'
 
-function CardView({id, image, title, price, description, category, brand, size,  cart, setCart}) {
+function CardView({id, image, title, price, description, category, brand, size,  cart, setCart,   setnewCart, newCart  }) {
 
     description = description.substring(0, 100) + "...";
 	
+	
+	
 
 	let uniquePro = [];
-	const clickHandler = ()=> {
-		// console.log(cart);
-		// uniquePro = [...new Set(cart)];
-		// console.log(uniquePro);
+	const clickHandler = ()=> {	
+
+
+		// setnewCart((newCart)=>{
+		// 	newCart = [...newCart, {proId:id, quantity: null, price: price }]
+		// 	// .push({proId:id, quantity: null, price: price })
+		// })
+		// localStorage.setItem("cartProduct", JSON.stringify(newCart));
+		
+		
+
 		setCart(cart => {
 			if(cart.includes(id)){
 				return [...cart]

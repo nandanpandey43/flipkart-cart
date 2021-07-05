@@ -6,10 +6,10 @@ import Dashboard from './Dashboard';
 function Cart({cart, setCart}) {
 
     const [product, setproduct] = useState(data);
-    const [prePrice, setprice] = useState("0");
+    const [prePrice, setprice] = useState([]);
 
 
-    console.log(typeof(prePrice));
+    // console.log(typeof(prePrice));
     const intersection = product.filter((ele)=>{
         return(
             cart.includes(ele.id)    
@@ -39,6 +39,7 @@ function Cart({cart, setCart}) {
                     category={prod.category}
                     setCart={setCart}
                     cart={cart}
+                    prePrice={prePrice}
                     setprice={setprice}
                     />
                 )

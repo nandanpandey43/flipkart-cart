@@ -5,8 +5,8 @@ import CardView from './CardView';
 
 function Contents({ product, setCart, cart }) {
 
-    
-
+    const [newCart, setnewCart] = useState([]);
+    // console.log(newCart, setnewCart);
 
     return ( 
         
@@ -30,6 +30,11 @@ function Contents({ product, setCart, cart }) {
                     category={product.category}
                     setCart={setCart}
                     cart={cart}
+
+                    newCart={newCart}
+                    setnewCart={setnewCart}
+
+
                  />
                 )
             })

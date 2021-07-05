@@ -8,12 +8,11 @@ function Dashboard({cart, prePrice}) {
         return(
             cart.includes(ele.id)    
     )})
-    console.log(intersection);
+    
 
     let sum = 0;
     for (let i=0; i<intersection.length; i++) {
         sum += intersection[i].price;
-        // console.log(typeof(intersection[i].price));
     }
     console.log(parseInt(prePrice));
     
