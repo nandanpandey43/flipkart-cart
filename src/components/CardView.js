@@ -1,53 +1,62 @@
-import React from 'react'
+import React, {useContext} from 'react';
+import { useHistory } from 'react-router-dom';
+import { DataContext } from './DataContext';
 
-function CardView({id, image, title, price, description, category, brand, size,  cart, setCart,   setnewCart, newCart  }) {
+function CardView({product, id, image, title, price, description, category, brand, size }) {
 
     description = description.substring(0, 100) + "...";
-	
-	
-	
 
-	let uniquePro = [];
-	const clickHandler = ()=> {	
+	const [products, setproduct, , setcart] = useContext(DataContext)
 
+	const history = useHistory();
 
-		// setnewCart((newCart)=>{
-		// 	newCart = [...newCart, {proId:id, quantity: null, price: price }]
-		// 	// .push({proId:id, quantity: null, price: price })
-		// })
-		// localStorage.setItem("cartProduct", JSON.stringify(newCart));
-		
-		
-
-		setCart(cart => {
-			if(cart.includes(id)){
-				return [...cart]
+	const cartHandler = ()=> {	
+		setproduct(
+			products.map((item) => {
+			if (item.id === id) {
+			  return { ...item, inCart: !item.inCart };
+			} else {
+			  return item;
 			}
-			cart = [...new Set(cart)];
-			return [...cart, id]});
+		  }));
+		// setcart([...cart, product]);
+
+		setcart((val)=>{
+			product.quantity = 1;
+			return [...val, product]
+		})
+
 	}
 
+	const gotoCart = () => {
+		history.push("/cart");
+	}
 
 
     return (
 
-        <div class="product-card">
-		<div class="badge"> {brand} </div>
-		<div class="product-tumb">
+        <div className="product-card">
+		<div className="badge"> {brand} </div>
+		<div className="product-tumb">
 			<img src={image} alt="" />
 		</div>
-		<div class="product-details">
-			<span class="product-catagory">{category}</span>
+		<div className="product-details">
+			<span className="product-catagory">{category}</span>
 			<h4> {title} </h4>
 			<p> {description} </p>
-			<div class="product-bottom-details">
-				<div class="product-price">
+			<div className="product-bottom-details">
+				<div className="product-price">
                     {/* <small> {size} </small> */}
-                    $ {price}
+                    $ {Number(price)}
                     </div>
-				<div class="product-links">
-					<a href=""><i class="fa fa-heart"></i></a>
-					<button onClick={clickHandler}><i class="fa fa-shopping-cart">Cart</i></button>
+				<div className="product-links">
+					<a href=""><i className="fa fa-heart"></i></a>
+					{product.inCart === true ? <button onClick={gotoCart}>
+						<i className="fa fa-shopping-cart gotocart">go to cart</i>
+					</button> : <button onClick={cartHandler}>
+						<i className="fa fa-shopping-cart">Add to Cart</i>
+					</button> }
+					
 				</div>
 			</div>
 		</div>

@@ -1,23 +1,12 @@
-import React, { useState } from 'react';
-import data from '../data';
+import React, { useContext } from 'react';
 import CartProduct from './CartProduct'
 import Dashboard from './Dashboard';
+import { DataContext } from './DataContext';
 
-function Cart({cart, setCart}) {
+function Cart() {
 
-    const [product, setproduct] = useState(data);
-    const [prePrice, setprice] = useState([]);
+    const [, , cart ] = useContext(DataContext)
 
-
-    // console.log(typeof(prePrice));
-    const intersection = product.filter((ele)=>{
-        return(
-            cart.includes(ele.id)    
-        )})
-
-   
-
-    
 
     return (
         <div  >
@@ -25,7 +14,7 @@ function Cart({cart, setCart}) {
             {/* <h3>My Cart ({cart.length}) </h3> */}
             <section className="container">
             <ul className="products">
-            {intersection.map((prod)=>{
+            {cart.map((prod)=>{
                 return(
                     <CartProduct
                     image={prod.image} 
@@ -37,10 +26,7 @@ function Cart({cart, setCart}) {
                     size={prod.size}
                     title={prod.title}
                     category={prod.category}
-                    setCart={setCart}
-                    cart={cart}
-                    prePrice={prePrice}
-                    setprice={setprice}
+                    prod={prod}
                     />
                 )
             })}
@@ -48,17 +34,10 @@ function Cart({cart, setCart}) {
             </section>
              
             <div className="dashboard" >
-                <Dashboard cart={cart} prePrice={prePrice} />
-            </div>
-           
-            
+                <Dashboard />
+            </div>          
         </div>
     )
 }
-
-
-
-
-
 
 export default Cart

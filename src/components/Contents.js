@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import data from '../data.json';
 import CardView from './CardView';
+import { DataContext } from './DataContext';
 
 
-function Contents({ product, setCart, cart }) {
+function Contents() {
 
-    const [newCart, setnewCart] = useState([]);
-    // console.log(newCart, setnewCart);
+    const [products] = useContext(DataContext);
 
     return ( 
         
@@ -16,9 +16,10 @@ function Contents({ product, setCart, cart }) {
         <div className="image-grid">
    
 
-        {product.map((product)=>{
+        {products.map((product)=>{
                 return (
                     <CardView
+                    product={product}
                     image={product.image} 
                     description={product.description}
                     key={product.id}
@@ -28,13 +29,6 @@ function Contents({ product, setCart, cart }) {
                     size={product.size}
                     title={product.title}
                     category={product.category}
-                    setCart={setCart}
-                    cart={cart}
-
-                    newCart={newCart}
-                    setnewCart={setnewCart}
-
-
                  />
                 )
             })
@@ -43,11 +37,6 @@ function Contents({ product, setCart, cart }) {
 
 
         </div>
-
-
-            
-            
-
 
         </div>
         

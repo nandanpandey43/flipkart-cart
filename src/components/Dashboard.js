@@ -1,38 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import data from '../data';
+import { DataContext } from './DataContext';
 
-function Dashboard({cart, prePrice}) {
+function Dashboard() {
 
-    const [product, setproduct] = useState(data)
-    const intersection = product.filter((ele)=>{
-        return(
-            cart.includes(ele.id)    
-    )})
-    
+    const [, , cart, , totalPrice, setTotalPrice] = useContext(DataContext)
 
     let sum = 0;
-    for (let i=0; i<intersection.length; i++) {
-        sum += intersection[i].price;
-    }
-    console.log(parseInt(prePrice));
-    
-    if(typeof(parseInt(prePrice)) === "NaN"){
-        sum = sum;
-    }
-    else{
-        sum += parseInt(prePrice);
-    }
+
+    // console.log(totalPrice);
+
 
     return (
         <div>
             <h4> Price Details </h4>
             <hr />
-            <p> Price ({cart.length} items) :- {sum} </p>
+            <p> Price ({cart.length} items) :- {totalPrice} </p>
             
             <p> Discount :- 10% </p>
             <hr />
 
-            <p> <strong> Total Amount : {sum - (sum*0.10)} </strong> </p>
+            <p> <strong> Total Amount : {totalPrice - (totalPrice*0.10)} </strong> </p>
         </div>
     )
 }

@@ -1,26 +1,24 @@
 import './App.css';
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import Topbar from './components/Topbar';
 import SidebarMenu from './components/SidebarMenu';
 import Contents from './components/Contents';
 import Cart from './components/Cart';
-import data from './data';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { DataContext } from './components/DataContext';
 
 
 function App() {
 
-  
-  const [product, setproduct] = useState(data)
-  const [cart, setCart] = useState([]);
-  
-  // console.log(cart);
+
+  const [products, setproduct] = useContext(DataContext);
+  const [, , cart, ] = useContext(DataContext);
+
 
   return (
     <div className="App">
 
       {/* Topbar */}
-      
       <BrowserRouter>
       <Topbar cart={cart} />
   
@@ -28,14 +26,14 @@ function App() {
 
       <Route path="/" exact >
         {/* left sidebar features */}
-       <SidebarMenu product={product} setproduct={setproduct} />
+       <SidebarMenu product={products} setproduct={setproduct} />
 
        {/* right sidebar features */}
-      <Contents product={product} setCart={setCart} cart={cart} />
+      <Contents  />
       </Route>
 
       <Route path="/cart" >
-        <Cart cart={cart} setCart={setCart} />
+        <Cart />
 
       </Route> 
 

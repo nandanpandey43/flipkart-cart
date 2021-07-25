@@ -1,35 +1,50 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import '../index.css';
+import { DataContext } from './DataContext';
 
 
 
-export default function CartProduct({id, image, title, price, description, category, brand, size,cart, setCart, setprice, prePrice }){
+export default function CartProduct({prod, id, image, title, price, description, category, brand, size }){
     
     description = description.substring(0, 50) + "...";
 
     let [count, setCount] = useState(1);
-    
-    // let [totalPrice, setTotalprice] = useState([]);
-    // console.log(prePrice);
+    const [itemPrice, setitemPrice] = useState(price)
+    const [products, setproduct, cart, setcart, , setTotalPrice] = useContext(DataContext)
 
-
-    let value = []
     const removeProduct = ()=>{
-        value = cart.filter(item => item !== id);
-        setCart((cart)=>[...value])
-    }
-
-    let newPrice = (para)=>{
-      if(para === 1){
-        return price;
-      }else{
-        return price*count;
-      }
+        setproduct(
+          products.map((product) => {
+            if (product.id === id) {
+              return { ...product, inCart: !product.inCart };
+            } else {
+              return product;
+            }
+          })
+        );
+        setcart((ele)=>{
+            let value = [];
+            value = ele.filter((item)=>{
+              return item.id !== id
+            })
+            return value;
+        })
     } 
+
+
     useEffect(() => {
-      setprice((prePrice)=>[...prePrice, newPrice]);
-    }, [])
-    
+      setitemPrice(count*price);
+      prod.quantity = count;
+
+      setTotalPrice((val)=>{
+        const pri = cart.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        );
+        return Math.round(pri);
+    })
+    }, [count])
+
 
     return(
       
@@ -48,7 +63,7 @@ export default function CartProduct({id, image, title, price, description, categ
                     <a href="#">{category}</a>
                   </div>
                   <div className="description">{title}</div>
-                  <div className="price"> ₹ {newPrice(count)}</div>
+                  <div className="price"> ₹ {itemPrice}</div>
                 </div>
               </div>
 
@@ -56,18 +71,31 @@ export default function CartProduct({id, image, title, price, description, categ
                 <div className="quantity">
                   
 
-                  <div class="plusminus horiz">
+                  <div className="plusminus horiz">
                     <button onClick={()=>{
-                      if(count>1){
-                        setCount(--count);
-                      }
                       
-                    }} > - </button>
-                    <input type="number" name="productQty" value={count} min="1" max="10" />
+                      if(count>1){
+                        setCount((val)=>{
+                          if(val>=2){
+                            return val-1;
+                          }
+                          else{
+                            return ;
+                          }
+                        });
+                      }
+                      // prod.quantity++
+                    }
+            
+                    } > - </button>
+                    {/* <input type="number" name="productQty" value={count} min="1" max="10"  /> */}
+                    <p style={{padding:"10px"}} > {count} </p>
                     <button onClick={()=>{
-                        setCount(++count);
-                    }} > + </button> 
+                        setCount((val)=>{
+                          return val+1;
+                        });
 
+                    }} > + </button> 
 
 
                     <div className="remove">
@@ -84,13 +112,7 @@ export default function CartProduct({id, image, title, price, description, categ
                   </svg>
                 </div>
 
-
-
-
-
                   </div>
-
-
 
                 </div>
 

@@ -20,14 +20,14 @@ function SidebarMenu({ product , setproduct }) {
                 const sorted = [...product].sort((a, b) => {
                     return a.price - b.price;
                   });
-                  console.log(sorted);
+                //   console.log(sorted);
                   setnewProducts(sorted)
             }
             else if(value === "hightolow"){
                 const sorted = [...product].sort((a, b) => {
                     return b.price - a.price;
                   });
-                  console.log(sorted);
+                //   console.log(sorted);
                   setnewProducts(sorted)
             }
            
