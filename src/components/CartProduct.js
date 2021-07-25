@@ -41,7 +41,7 @@ export default function CartProduct({prod, id, image, title, price, description,
           (total, item) => total + item.price * item.quantity,
           0
         );
-        return Math.round(pri);
+        return Math.round(pri*100)/100;
     })
     }, [count])
 
@@ -63,7 +63,7 @@ export default function CartProduct({prod, id, image, title, price, description,
                     <a href="#">{category}</a>
                   </div>
                   <div className="description">{title}</div>
-                  <div className="price"> ₹ {itemPrice}</div>
+                  <div className="price"> ₹ {Math.round(itemPrice*100)/100}</div>
                 </div>
               </div>
 

@@ -20,7 +20,7 @@ function Dashboard() {
             <p> Discount :- 10% </p>
             <hr />
 
-            <p> <strong> Total Amount : {totalPrice - (totalPrice*0.10)} </strong> </p>
+            <p> <strong> Total Amount : {totalPrice - Math.round(totalPrice*0.10)} </strong> </p>
         </div>
     )
 }
