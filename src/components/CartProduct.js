@@ -37,13 +37,18 @@ export default function CartProduct({prod, id, image, title, price, description,
       prod.quantity = count;
 
       setTotalPrice((val)=>{
-        const pri = cart.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        );
-        return Math.round(pri*100)/100;
-    })
-    }, [count])
+        if(cart.length>=1){
+          const pri = cart.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+          );
+          return Math.round(pri*100)/100;
+        }else{
+          return 0;
+        }
+        
+      })
+    }, [count, cart])
 
 
     return(
